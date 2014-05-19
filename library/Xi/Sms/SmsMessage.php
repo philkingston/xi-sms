@@ -9,23 +9,40 @@
 
 namespace Xi\Sms;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
- * SMS message
+ * @ORM\Table(name="SmsMessage")
+ * @ORM\Entity()
  */
-class SmsMessage
+class SmsMessage extends BasicEntity
 {
+	/**
+	 * $ORM\Column(name="id", type="integer")
+	 */
+	private $id;
+
     /**
      * @var string
+     * @ORM\Column(name="body", type="string")
      */
     private $body;
 
     /**
      * @var string
+     * @ORM\Column(name="from", type="string")
      */
     private $from;
 
     /**
+     *
+     * @ORM\Column(name="timestamp", name="datetime")
+     */
+    private $timestamp;
+
+    /**
      * @var array
+     * @ORM\Column(name="to", type="string")
      */
     private $to = array();
 
@@ -42,6 +59,8 @@ class SmsMessage
         if ($to) {
             $this->setTo($to);
         }
+
+        $this->timestamp = new \DateTime('now');
     }
 
     /**
